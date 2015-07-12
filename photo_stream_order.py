@@ -8,7 +8,7 @@ db = sqlite3.connect(expanduser("~")+"\\Application Data\\Apple Computer\\MediaS
 
 def get_num(check_sum):
     result = db.execute("select assetnumber, batchcreatedate from MSASAlbumAssets where checksum=?", (check_sum,)).fetchone()
-    return result[1] if not (result is None) else None
+    return str(result[1])+'-'+str(result[0]) if not (result is None) else None
 
 
 def put_in_order(dir_name):
