@@ -7,7 +7,7 @@ from shutil import copyfile
 db = sqlite3.connect(expanduser("~")+"\\Application Data\\Apple Computer\\MediaStream\\local.db")
 
 def get_num(check_sum):
-    result = db.execute("select assetnumber, batchcreatedate from MSASAlbumAssets where checksum=?", (check_sum,)).fetchone()
+    result = db.execute("select assetnumber, dateCreated, batchcreatedate from MSASAlbumAssets where checksum=?", (check_sum,)).fetchone()
     return str(result[1])+'-'+str(result[0]) if not (result is None) else None
 
 
@@ -41,7 +41,7 @@ def put_in_order(dir_name):
             print('\nSkipped "%s"\n' % f)
             skipped += 1
         else:
-            copyfile(dir_name+'\\'+f, dest_dir+'\\'+str(num)+f[f.find('.'):])
+            copyfile(dir_name+'\\'+f, dest_dir+'\\'+str(num)+'-'+f)
             print('%s => %s' % (f, num))
             processed += 1
 
