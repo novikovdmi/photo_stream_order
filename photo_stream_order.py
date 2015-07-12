@@ -17,7 +17,7 @@ def put_in_order(dir_name):
 
     print('Process "%s"...' % dir_name)
 
-    files = list(filter(lambda x: isfile(dir_name + "\\" + x) and x.lower().endswith('.jpg'), listdir(dir_name)))
+    files = list(filter(lambda x: isfile(dir_name + "\\" + x), listdir(dir_name)))
     print('%d files found' % len(files))
 
     dir_num = 0
@@ -36,12 +36,12 @@ def put_in_order(dir_name):
     processed = 0
     skipped = 0
     for f in files:
-        num = get_num(f[: f.find('.')])
+        num = get_num(f[:f.find('.')])
         if num is None:
-            print('Skip "%s"' % f)
+            print('\nSkipped "%s"\n' % f)
             skipped += 1
         else:
-            copyfile(dir_name+'\\'+f, dest_dir+'\\'+str(num)+'.jpg')
+            copyfile(dir_name+'\\'+f, dest_dir+'\\'+str(num)+f[f.find('.'):])
             print('%s => %s' % (f, num))
             processed += 1
 
